@@ -1,0 +1,146 @@
+version: '3'
+
+name: 'media'
+
+services:
+  qbittorrent:
+    image: linuxserver/qbittorrent:latest
+    restart: unless-stopped
+    environment:
+      - TZ=America/Sao_Paulo
+      - WEB_PORT=9090
+      - PUID=1000
+      - PGID=1000
+    volumes:
+      - /home/lucas/home_media/qbittorrent:/config
+      - /home/Torrents/Downloads:/downloads
+    ports:
+      - '9090:9090'
+      - '62609:62609'
+
+  jackett:
+    image: linuxserver/jackett:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/jackett:/config
+      - /home/lucas/home_media/jackett/downloads:/downloads
+    ports:
+      - '9117:9117'
+
+  bazarr:
+    image: linuxserver/bazarr:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/bazarr:/config
+      - /home/lucas/Torrents/Animes:/animes \
+      - /home/lucas/Torrents/Movies:/movies \
+      - /home/lucas/Torrents/tvseries:/tv \
+    ports:
+      - '6767:6767'
+
+  overseerr:
+    image: linuxserver/overseerr:latest
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+    environment:
+      - TZ=America/Sao_Paulo
+      - PORT=5055
+    volumes:
+      - /home/lucas/home_media/overseerr:/config
+    ports:
+      - '5055:5055'
+
+  prowlarr:
+    image: linuxserver/prowlarr:latest
+    restart: unless-stopped
+    depends_on:
+      - flaresolverr
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/prowlarr:/config
+    ports:
+      - '9696:9696'
+
+  flaresolverr:
+    image: flaresolverr/flaresolverr:latest
+    restart: unless-stopped
+    volumes:
+      - /home/lucas/home_media/flaresolverr:/config
+    ports:
+      - '8191:8191'
+
+  sabnzbd:
+    image: linuxserver/sabnzbd:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/sabnzbd:/config
+      - /home/lucas/Torrents/nzbget:/downloads
+      - /home/lucas/Torrents/nzbget/incomplete:/incomplete-downloads
+    ports:
+      - '6789:6789'
+
+  radarr:
+    image: linuxserver/radarr:latest
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/radarr:/config
+      - /home/lucas/Torrents/Movies:/downloads
+    ports:
+      - '7878:7878'
+
+  sonarr:
+    image: linuxserver/sonarr:latest
+    restart: unless-stopped
+    depends_on:
+      - qbittorrent
+    environment:
+      - PGID=1000
+      - PUID=1000
+      - TZ=America/Sao_Paulo
+    volumes:
+      - /home/lucas/home_media/sonarr/config:/config
+      - /home/lucas/Torrents/tvseries:/tv
+      - /home/lucas/Torrents/Animes:/animes
+      - /home/lucas/Torrents/Downloads:/downloads
+    ports:
+      - '8989:8989'
+
+  plex:
+    image: plexinc/pms-docker:latest
+    restart: unless-stopped
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/Sao_Paulo
+      - PLEX_HW_TRAN_MAX=16
+    volumes:
+      - /home/lucas/home_media/plex:/config
+      - /home/lucas/Torrents/Animes:/tv
+      - /home/lucas/Torrents/tvseries:/series
+      - /home/lucas/Torrents/Movies:/movies
+    devices:
+      - /dev/dri:/dev/dri
+      - /dev/bus/usb:/dev/bus/usb
+    network_mode: host
