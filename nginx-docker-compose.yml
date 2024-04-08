@@ -1,0 +1,15 @@
+name: 'nginx'
+
+services:
+  app:
+    image: jc21/nginx-proxy-manager
+    restart: unless-stopped
+    ports:
+      - 80:80
+      - 81:81
+      - 443:443
+    volumes:
+      - $HOME/home_server/nginx:/data
+      - $HOME/home_server/letsencrypt:/etc/letsencrypt
+    # network_mode: host
+
