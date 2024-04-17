@@ -1,0 +1,14 @@
+version: "3.8"
+
+name: "traefik"
+
+services:
+  traefik:
+    image: traefik:latest
+    environment:
+      - $HOME/home_server/config/traefik.yml:/etc/traefik/traefik.yml
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 8089:8080
+      - 80:80
+
