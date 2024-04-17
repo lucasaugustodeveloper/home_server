@@ -1,0 +1,14 @@
+version: "3.8"
+
+name: "quickshare"
+
+services:
+  quickshare:
+    image: hexxa/quickshare
+    ports:
+      - "8686:8686"
+    volumes:
+      - $HOME/home_server/quickshare:/quickshare/root
+      - DEFAULTADMIN=laugusto@admin.com
+      - DEFAULTTADMINPWD=1234
+
