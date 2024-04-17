@@ -1,0 +1,22 @@
+version: "3.8"
+
+name: "Gitlab"
+
+services:
+  server:
+    image: gitlab/gitlab-ce
+    restart: always
+      #    hostname: 'gitlab.example.com'
+    environment:
+      #    GITLAB_OMNIBUS_CONFIG:
+      #      external_url 'https://gitlab.example.com'
+    ports:
+      - '8085:80'
+      - '443:443'
+      - '22:22'
+    volumes:
+      - '$HOME/home_server/gitlab/config:/etc/gitlab'
+      - '$HOME/home_server/gitlab/logs:/var/log/gitlab'
+      - '$HOME/home_server/gitlab/data:/var/opt/gitlab'
+    shm_size: '256m'
+
