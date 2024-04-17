@@ -1,0 +1,11 @@
+version: "3.8"
+
+name: "Vault Warden"
+
+services:
+  vault:
+    image: vaultwarden/server:latest
+    restart: unless-stopped
+    ports:
+      - "8090:80"
+
