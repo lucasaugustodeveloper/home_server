@@ -5,10 +5,16 @@ name: "traefik"
 services:
   traefik:
     image: traefik:latest
+    command: --api.insecure=true --providers.docker
     environment:
       - $HOME/home_server/config/traefik.yml:/etc/traefik/traefik.yml
       - /var/run/docker.sock:/var/run/docker.sock
     ports:
       - 8089:8080
       - 80:80
+
+  whoami:
+    image: traefik/whoami
+    labels:
+      - "traefik.http.routers.whoami.rule=Host(`whoami.docker.localhost`)"
 
