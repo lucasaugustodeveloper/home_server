@@ -10,7 +10,7 @@ services:
       - PUID=1000
       - PGID=1000
     volumes:
-      - $USER/home_media/qbittorrent:/config
+      - $PWD/home_media/qbittorrent:/config
       - /home/Torrents/Downloads:/downloads
     ports:
       - '9090:9090'
@@ -24,8 +24,8 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/jackett:/config
-      - $USER/home_media/jackett/downloads:/downloads
+      - $PWD/home_media/jackett:/config
+      - $PWD/home_media/jackett/downloads:/downloads
     ports:
       - '9117:9117'
 
@@ -37,10 +37,10 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/bazarr:/config
-      - $USER/Torrents/Animes:/animes \
-      - $USER/Torrents/Movies:/movies \
-      - $USER/Torrents/tvseries:/tv \
+      - $PWD/home_media/bazarr:/config
+      - $PWD/Torrents/Animes:/animes \
+      - $PWD/Torrents/Movies:/movies \
+      - $PWD/Torrents/tvseries:/tv \
     ports:
       - '6767:6767'
 
@@ -53,7 +53,7 @@ services:
       - TZ=America/Sao_Paulo
       - PORT=5055
     volumes:
-      - $USER/home_media/overseerr:/config
+      - $PWD/home_media/overseerr:/config
     ports:
       - '5055:5055'
 
@@ -67,7 +67,7 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/prowlarr:/config
+      - $PWD/home_media/prowlarr:/config
     ports:
       - '9696:9696'
 
@@ -75,7 +75,7 @@ services:
     image: flaresolverr/flaresolverr:latest
     restart: unless-stopped
     volumes:
-      - $USER/home_media/flaresolverr:/config
+      - $PWD/home_media/flaresolverr:/config
     ports:
       - '8191:8191'
 
@@ -87,9 +87,9 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/sabnzbd:/config
-      - $USER/Torrents/nzbget:/downloads
-      - $USER/Torrents/nzbget/incomplete:/incomplete-downloads
+      - $PWD/home_media/sabnzbd:/config
+      - $PWD/Torrents/nzbget:/downloads
+      - $PWD/Torrents/nzbget/incomplete:/incomplete-downloads
     ports:
       - '6789:6789'
 
@@ -103,8 +103,8 @@ services:
       - PUID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/radarr:/config
-      - $USER/Torrents/Movies:/downloads
+      - $PWD/home_media/radarr:/config
+      - $PWD/Torrents/Movies:/downloads
     ports:
       - '7878:7878'
 
@@ -118,10 +118,10 @@ services:
       - PUID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $USER/home_media/sonarr/config:/config
-      - $USER/Torrents/tvseries:/tv
-      - $USER/Torrents/Animes:/animes
-      - $USER/Torrents/Downloads:/downloads
+      - $PWD/home_media/sonarr/config:/config
+      - $PWD/Torrents/tvseries:/tv
+      - $PWD/Torrents/Animes:/animes
+      - $PWD/Torrents/Downloads:/downloads
     ports:
       - '8989:8989'
 
@@ -134,10 +134,10 @@ services:
       - TZ=America/Sao_Paulo
       - PLEX_HW_TRAN_MAX=16
     volumes:
-      - $USER/home_media/plex:/config
-      - $USER/Torrents/Animes:/tv
-      - $USER/Torrents/tvseries:/series
-      - $USER/Torrents/Movies:/movies
+      - $PWD/home_media/plex:/config
+      - $PWD/Torrents/Animes:/tv
+      - $PWD/Torrents/tvseries:/series
+      - $PWD/Torrents/Movies:/movies
     devices:
       - /dev/dri:/dev/dri
       - /dev/bus/usb:/dev/bus/usb
