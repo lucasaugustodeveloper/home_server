@@ -23,7 +23,7 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - /home/lucas/home_media/organizr:/config
+      - $USER/home_media/organizr:/config
     ports:
     - "80:80"
 
@@ -44,6 +44,6 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - /home/lucas/home_media/librespeed:/config
+      - $USER/home_media/librespeed:/config
     ports:
       - "9091:80"
