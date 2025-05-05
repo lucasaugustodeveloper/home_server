@@ -18,8 +18,8 @@ services:
       - PGID=1000
       - TZ=America/Sao_Paulo
     volumes:
-      - $PWD/home_media/kaizoku:/config
-      - $PWD/Torrents/Manga/Library:/data
+      - $HOME/home_media/kaizoku:/config
+      - $HOME/Torrents/Manga/Library:/data
       - /tmp:/logs
     depends_on:
       kaizoku-db:
@@ -47,12 +47,14 @@ services:
       - POSTGRES_PASSWORD=kaizoku
     volumes:
       - kaizoku-db:/var/lib/postgresql/data
+    ports:
+      - 9099:5432
 
   kavita:
     image: jvmilazz0/kavita:latest
     restart: unless-stopped
     volumes:
-      - $PWD/home_media/kavita:/config
-      - $PWD/Torrents/Manga/Library:/manga
+      - $HOME/home_media/kavita:/config
+      - $HOME/Torrents/Manga/Library:/manga
     ports:
       - '5000:5000'
