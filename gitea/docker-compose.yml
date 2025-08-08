@@ -24,16 +24,3 @@ services:
     ports:
       - "3000:3000"
       - "222:22"
-    depends_on:
-      - db
-
-  db:
-    image: mysql:8
-    restart: unless-stopped
-    environment:
-      - MYSQL_ROOT_PASSWORD=gitea
-      - MYSQL_USER=gitea
-      - MYSQL_PASSWORD=gitea
-      - MYSQL_DATABASE=gitea
-    networks:
-      - gitea
