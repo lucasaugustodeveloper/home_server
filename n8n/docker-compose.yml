@@ -1,13 +1,33 @@
 services:
   n8n:
     image: n8nio/n8n
+    container_name: n8n
     ports:
       - "5678:5678"
     environment:
       - GENERIC_TIMEZONE=America/Sao_Paulo
+      - DB_TYPE=postgres
+      - DB_POSTGRESDB_HOST=postgres
+      - DB_POSTGRESDB_USER=example
+      - DB_POSTGRESDB_PASSWORD=example
+      - DB_POSTGRESDB_DATABASE=n8n
+      - DB_POSTGRESDB_PORT=5432
     volumes:
       - n8n_data:/home/node/.n8n
-    #restart: unless-stopped
+    restart: unless-stopped
+    depends_on:
+      - postgres
+    networks:
+      - n8n
+  
+  postgres:
+    image: postgres:17
+    container_name: database
+    environment:
+      - POSTGRES_USER=example
+      - POSTGRES_PASSWORD=example
+      - POSTGRES_DB=n8n
+    restart: unless-stopped
     networks:
       - n8n
 
